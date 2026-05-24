@@ -541,6 +541,13 @@ input, select, textarea { font-family: inherit; }
   margin-bottom: 20px;
 }
 
+@media (max-width:768px){
+  .toolbar{
+      flex-wrap: nowrap;
+      overflow-x:auto;
+      padding-bottom: 10px;
+}
+}
 /* ===== Animations ===== */
 @keyframes fadeIn {
   from { opacity: 0; }

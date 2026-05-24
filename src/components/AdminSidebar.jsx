@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { FiGrid, FiUsers, FiShoppingBag, FiPackage, FiBarChart2, FiLogOut, FiChevronLeft } from 'react-icons/fi';
 import { useState } from 'react';
 import './AdminSidebar.css';
+import logo from '../images/logo.png';
 
 const menuItems = [
   { path: '/admin', icon: <FiGrid />, label: 'Dashboard', end: true },
@@ -27,8 +28,7 @@ export default function AdminSidebar() {
       <div className="sidebar-header">
         {!collapsed && (
           <div className="sidebar-brand">
-            <span className="brand-icon">🍔</span>
-            <span>FoodExpress</span>
+            <img src={logo} alt="logo" />
           </div>
         )}
         <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>

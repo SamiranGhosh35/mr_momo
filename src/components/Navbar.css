@@ -25,7 +25,11 @@
   gap: 10px;
   font-size: 1.3rem;
   font-weight: 800;
+
 }
+ .navbar-brand img{
+    max-width: 120px;
+  }
 
 .brand-icon { font-size: 1.5rem; }
 .brand-text {
@@ -128,6 +132,9 @@
 }
 
 @media (max-width: 768px) {
+  .navbar-actions{
+    margin-left: auto;
+  }
   .mobile-toggle { display: block; }
 
   .navbar-links {
@@ -145,4 +152,7 @@
   .navbar-links.open { display: flex; }
   .nav-link { width: 100%; text-align: center; }
   .user-name { display: none; }
+  .navbar-container{
+    padding: 0 5px;
+  }
 }

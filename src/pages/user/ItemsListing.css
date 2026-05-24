@@ -65,6 +65,7 @@
   padding: 24px;
 }
 
+
 .items-filters {
   display: flex;
   align-items: center;
@@ -114,6 +115,23 @@
 
 .sort-select .form-select {
   min-width: 160px;
+}
+
+@media (max-width:768px){
+  .items-container{
+    padding: 10px;
+  }
+  .sort-select{
+    width: 100%;
+  }
+  .category-chips{
+        display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    flex: 1;
+    overflow-x: auto;
+    padding-bottom: 17px;
+  }
 }
 
 /* Item Cards */

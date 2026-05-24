@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { FiShoppingCart, FiUser, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 import { useState } from 'react';
 import './Navbar.css';
+import logo from '../images/logo.png';
 
 export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
@@ -24,13 +25,10 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
-          <span className="brand-icon">🍔</span>
-          <span className="brand-text">FoodExpress</span>
+           <img src={logo} alt="logo" />
         </Link>
 
-        <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <FiX /> : <FiMenu />}
-        </button>
+ 
 
         <div className={`navbar-links ${mobileOpen ? 'open' : ''}`}>
           {isAuthenticated && !isAdmin && (
@@ -66,6 +64,9 @@ export default function Navbar() {
             </div>
           )}
         </div>
+               <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <FiX /> : <FiMenu />}
+        </button>
       </div>
     </nav>
   );

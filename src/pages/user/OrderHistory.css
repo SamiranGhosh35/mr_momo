@@ -96,3 +96,17 @@
   color: var(--text-muted);
   margin-top: 6px;
 }
+
+
+@media (max-width:768px){
+  .status-filters{  
+  padding-bottom: 10px;
+  flex-flow: nowrap;
+}
+  .status-filters button{ 
+    white-space: nowrap;
+   }
+   .orders-page{
+    padding: 10px;
+   }
+}

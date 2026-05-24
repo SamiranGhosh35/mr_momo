@@ -118,4 +118,13 @@
 
 @media (max-width: 768px) {
   .checkout-layout { grid-template-columns: 1fr; }
+  .checkout-page{
+    padding: 0 10px;
+  }
+  .success-actions{
+    flex-flow: wrap;
+  }
+  .success-actions button{
+    width: 100%;
+  }
 }
