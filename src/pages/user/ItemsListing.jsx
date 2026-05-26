@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { itemsAPI, categoriesAPI } from '../../services/api';
 import { useCart } from '../../context/CartContext';
-import { FiSearch, FiShoppingCart, FiFilter } from 'react-icons/fi';
+import { FiSearch, FiShoppingCart, FiFilter, FiMinus, FiPlus } from 'react-icons/fi';
 import { getImageUrl } from '../../services/api';
 import './ItemsListing.css';
 
@@ -14,7 +14,7 @@ export default function ItemsListing() {
   const [sort, setSort] = useState('newest');
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({});
-  const { addToCart } = useCart();
+  const { addToCart, cartItems, updateQuantity } = useCart();
 
   const loadItems = useCallback(async () => {
     setLoading(true);
@@ -115,8 +115,14 @@ export default function ItemsListing() {
           </div>
         ) : (
           <div className="items-grid">
-            {items.map(item => (
-              <div key={item.id} className="item-card glass-card" id={`item-${item.id}`}>
+            {items.map(item => {
+              const cartItem = cartItems.find(cartItem => cartItem.id === item.id);
+              const isOutOfStock = !item.is_available || item.quantity_available <= 0;
+              const maxQuantity = Number(item.quantity_available) || 0;
+              const isAtStockLimit = cartItem && maxQuantity > 0 && cartItem.quantity >= maxQuantity;
+
+              return (
+                <div key={item.id} className="item-card glass-card" id={`item-${item.id}`}>
                 <div className="item-image">
                   {item.image ? (
                     <img src={getImageUrl(item.image)} alt={item.name} />
@@ -132,18 +138,42 @@ export default function ItemsListing() {
                   <p className="item-desc">{item.description}</p>
                   <div className="item-footer">
                     <span className="item-price">₹{parseFloat(item.price).toFixed(2)}</span>
-                    <button
-                      className="btn btn-primary btn-sm add-to-cart-btn"
-                      onClick={() => addToCart(item)}
-                      disabled={!item.is_available || item.quantity_available <= 0}
-                      id={`add-to-cart-${item.id}`}
-                    >
-                      {!item.is_available || item.quantity_available <= 0 ? 'Out of Stock' : <><FiShoppingCart /> Add</>}
-                    </button>
+                    {cartItem ? (
+                      <div className="menu-quantity-control" id={`quantity-control-${item.id}`}>
+                        <button
+                          type="button"
+                          className="menu-quantity-btn"
+                          onClick={() => updateQuantity(item.id, cartItem.quantity - 1)}
+                          aria-label={`Decrease ${item.name} quantity`}
+                        >
+                          <FiMinus />
+                        </button>
+                        <span className="menu-quantity-value">{cartItem.quantity}</span>
+                        <button
+                          type="button"
+                          className="menu-quantity-btn"
+                          onClick={() => updateQuantity(item.id, cartItem.quantity + 1)}
+                          disabled={isOutOfStock || isAtStockLimit}
+                          aria-label={`Increase ${item.name} quantity`}
+                        >
+                          <FiPlus />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className="btn btn-primary btn-sm add-to-cart-btn"
+                        onClick={() => addToCart(item)}
+                        disabled={isOutOfStock}
+                        id={`add-to-cart-${item.id}`}
+                      >
+                        {isOutOfStock ? 'Out of Stock' : <><FiShoppingCart /> Add</>}
+                      </button>
+                    )}
                   </div>
                 </div>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         )}
 

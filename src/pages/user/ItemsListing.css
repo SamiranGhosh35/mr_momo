@@ -212,6 +212,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .item-price {
@@ -225,6 +227,56 @@
 
 .add-to-cart-btn {
   flex-shrink: 0;
+  margin-left: auto;
+}
+
+.menu-quantity-control {
+  display: inline-grid;
+  grid-template-columns: 32px minmax(34px, 1fr) 32px;
+  align-items: center;
+  width: 112px;
+  height: 34px;
+  margin-left: auto;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--bg-input);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+}
+
+.menu-quantity-btn {
+  width: 32px;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.menu-quantity-btn:hover:not(:disabled) {
+  background: var(--bg-glass-hover);
+  color: var(--accent-amber-light);
+}
+
+.menu-quantity-btn:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.menu-quantity-value {
+  min-width: 34px;
+  padding: 0 8px;
+  text-align: center;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent-amber-light);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
 }
 
 .item-card-skeleton {
